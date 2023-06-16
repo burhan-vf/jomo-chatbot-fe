@@ -1,11 +1,15 @@
 import { useState } from "react";
 import "./App.css";
+import { TypeAnimation } from "react-type-animation";
+import { Button } from "antd";
 
 function App() {
   const [response, setResponse] = useState([]);
   const [inputText, setInputText] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
+    setLoading(true);
     e.preventDefault();
     let res = await fetch(`${process.env.REACT_APP_BASEURL}/chatbot`, {
       method: "post",
@@ -16,14 +20,15 @@ function App() {
     });
 
     let finalResponse = await res.json();
-    const arr = finalResponse.message.text
-      .split(",")
-      .map((item) => item.trim());
+    if (!finalResponse.error) {
+      const arr = finalResponse.message.text
+        .split(",")
+        .map((item) => item.trim());
 
-    console.log(arr, finalResponse.message.text);
-
-    finalResponse = arr.join("|");
-
+      finalResponse = arr.join("|");
+    } else {
+      finalResponse = "";
+    }
     let res1 = await fetch(
       `https://www.searchanise.com/getresults?api_key=0W3e6T0n6W&sortOrder=asc&restrictBy[product_id]=${finalResponse}&items=true&pages=false&categories=false&suggestions=false&facets=false&facetsShowUnavailableOptions=false&queryCorrection=true&output=json`,
       {
@@ -33,6 +38,7 @@ function App() {
     );
     finalResponse = await res1.json();
     setResponse(finalResponse.items);
+    setLoading(false);
   };
 
   const handleChange = (e) => {
@@ -58,7 +64,7 @@ function App() {
           value={inputText}
           onChange={handleChange}
         />
-        <label for="nme" style={{ fontSize: "28px" }}>
+        <label for="nme" style={{ fontSize: "24px" }}>
           <span>
             Welcome to Jomo! How may I assist you in finding the perfect items
             today?
@@ -72,9 +78,19 @@ function App() {
           }}
         >
           <div></div>
-          <button onClick={handleSubmit} className="button">
-            Submit
-          </button>
+          <Button
+            onClick={handleSubmit}
+            loading={loading}
+            type="primary"
+            size="small"
+            style={{
+              height: "50%",
+              textAlign: "center",
+              margin: 10,
+            }}
+          >
+            <span>Submit</span>
+          </Button>
         </div>
       </form>
 
@@ -86,8 +102,24 @@ function App() {
                 <img src={item.image_link} width={200} />
               </div>
               <div style={{ width: "70%" }}>
-                <h5>{item.title}</h5>
-                <p>{item.description}</p>
+                <TypeAnimation
+                  key={item.title}
+                  sequence={[item.title]}
+                  wrapper="h4"
+                  cursor={false}
+                  repeat={0}
+                  style={{ fontSize: "1rem" }}
+                />
+                <TypeAnimation
+                  key={item.title}
+                  sequence={[item.description]}
+                  wrapper="p"
+                  cursor={false}
+                  repeat={0}
+                  style={{ fontSize: "1rem" }}
+                />
+                {/* <h5>{item.title}</h5>
+                <p>{item.description}</p> */}
               </div>
             </div>
           );

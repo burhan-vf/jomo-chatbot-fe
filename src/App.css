@@ -3,7 +3,7 @@ Basic input element using psuedo classes
 */
 
 html {
-  font-family: 'Lora', sans-serif;
+  font-family: "Lora", sans-serif;
   width: 100%;
 }
 
@@ -22,7 +22,7 @@ input,
 span,
 label,
 textarea {
-  font-family: 'Ubuntu', sans-serif;
+  font-family: "Ubuntu", sans-serif;
   display: block;
   margin: 10px;
   padding: 5px;
@@ -108,8 +108,8 @@ textarea.question + label > span {
   font-weight: 300;
   margin: 0;
   position: absolute;
-  color: #8F8F8F;
-  font-size: 48px;
+  color: #8f8f8f;
+  font-size: 28px;
   top: -66px;
   left: 0px;
   z-index: -1;
@@ -128,19 +128,21 @@ input[type="submit"] {
 }
 
 input[type="submit"]:hover {
-  background: #EEE;
+  background: #eee;
 }
 
 input[type="submit"]:active {
   background: #999;
 }
 
-input.question:valid ~ input[type="submit"], textarea.question:valid ~ input[type="submit"] {
+input.question:valid ~ input[type="submit"],
+textarea.question:valid ~ input[type="submit"] {
   -webkit-animation: appear 1s forwards;
   animation: appear 1s forwards;
 }
 
-input.question:invalid ~ input[type="submit"], textarea.question:invalid ~ input[type="submit"] {
+input.question:invalid ~ input[type="submit"],
+textarea.question:invalid ~ input[type="submit"] {
   display: none;
 }
 
@@ -156,10 +158,9 @@ input.question:invalid ~ input[type="submit"], textarea.question:invalid ~ input
   }
 }
 
-.text-center{
+.text-center {
   text-align: center;
 }
-
 
 .button {
   display: inline-block;
