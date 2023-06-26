@@ -11,20 +11,20 @@ function App() {
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
-    let res = await fetch(`${process.env.REACT_APP_BASEURL}/chatbot`, {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ prompt: inputText }),
-    });
+    let res = await fetch(
+      `${process.env.REACT_APP_BASEURL}/jomo-recommendations`,
+      {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ query: inputText }),
+      }
+    );
 
     let finalResponse = await res.json();
-    if (!finalResponse.error) {
-      const arr = finalResponse.message.text
-        .split(",")
-        .map((item) => item.trim());
-
+    if (finalResponse.response) {
+      const arr = finalResponse.response;
       finalResponse = arr.join("|");
     } else {
       finalResponse = "";
