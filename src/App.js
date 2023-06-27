@@ -9,36 +9,42 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
-    setLoading(true);
-    e.preventDefault();
-    let res = await fetch(
-      `${process.env.REACT_APP_BASEURL}/jomo-recommendations`,
-      {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ query: inputText }),
-      }
-    );
+    if (inputText != "") {
+      setLoading(true);
+      e.preventDefault();
+      try {
+        let res = await fetch(
+          `${process.env.REACT_APP_BASEURL}/jomo-recommendations`,
+          {
+            method: "post",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ query: inputText }),
+          }
+        );
 
-    let finalResponse = await res.json();
-    if (finalResponse.response) {
-      const arr = finalResponse.response;
-      finalResponse = arr.join("|");
-    } else {
-      finalResponse = "";
-    }
-    let res1 = await fetch(
-      `https://www.searchanise.com/getresults?api_key=0W3e6T0n6W&sortOrder=asc&restrictBy[product_id]=${finalResponse}&items=true&pages=false&categories=false&suggestions=false&facets=false&facetsShowUnavailableOptions=false&queryCorrection=true&output=json`,
-      {
-        method: "get",
-        withCredentials: false,
+        let finalResponse = await res.json();
+        if (finalResponse.response) {
+          const arr = finalResponse.response;
+          finalResponse = arr.join("|");
+        } else {
+          finalResponse = "";
+        }
+        let res1 = await fetch(
+          `https://www.searchanise.com/getresults?api_key=1Z0i4h4Y6U&sortOrder=asc&restrictBy[product_id]=${finalResponse}&items=true&pages=false&categories=false&suggestions=false&facets=false&facetsShowUnavailableOptions=false&queryCorrection=true&output=json`,
+          {
+            method: "get",
+            withCredentials: false,
+          }
+        );
+        finalResponse = await res1.json();
+        setResponse(finalResponse.items);
+        setLoading(false);
+      } catch (error) {
+        setLoading(false);
       }
-    );
-    finalResponse = await res1.json();
-    setResponse(finalResponse.items);
-    setLoading(false);
+    }
   };
 
   const handleChange = (e) => {
