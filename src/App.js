@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import { TypeAnimation } from "react-type-animation";
 import { Button } from "antd";
+import logo from "./logo.svg";
 
 function App() {
   const [response, setResponse] = useState([]);
@@ -53,6 +54,9 @@ function App() {
 
   return (
     <div className="App">
+      <div className="text-center">
+        <img src={logo} alt={"logo"} width={200} />
+      </div>
       <h3
         className="text-center"
         style={{ fontSize: "48px", marginTop: "50px" }}
