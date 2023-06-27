@@ -14,32 +14,32 @@ function App() {
       setLoading(true);
       e.preventDefault();
       try {
-        // let res = await fetch(
-        //   `${process.env.REACT_APP_BASEURL}/jomo-recommendations`,
-        //   {
-        //     method: "post",
-        //     headers: {
-        //       "Content-Type": "application/json",
-        //     },
-        //     body: JSON.stringify({ query: inputText }),
-        //   }
-        // );
+        let res = await fetch(
+          `${process.env.REACT_APP_BASEURL}/jomo-recommendations`,
+          {
+            method: "post",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ query: inputText }),
+          }
+        );
 
-        // let finalResponse = await res.json();
-        // if (finalResponse.response) {
-        //   const arr = finalResponse.response;
-        //   finalResponse = arr.join("|");
-        // } else {
-        //   finalResponse = "";
-        // }
+        let finalResponse = await res.json();
+        if (finalResponse.response) {
+          const arr = finalResponse.response;
+          finalResponse = arr.join("|");
+        } else {
+          finalResponse = "";
+        }
         let res1 = await fetch(
-          `https://www.searchanise.com/getresults?api_key=1Z0i4h4Y6U&sortOrder=asc&restrictBy[product_id]=&items=true&pages=false&categories=false&suggestions=false&facets=false&facetsShowUnavailableOptions=false&queryCorrection=true&output=json`,
+          `https://www.searchanise.com/getresults?api_key=1Z0i4h4Y6U&sortOrder=asc&restrictBy[product_id]=${finalResponse}&items=true&pages=false&categories=false&suggestions=false&facets=false&facetsShowUnavailableOptions=false&queryCorrection=true&output=json`,
           {
             method: "get",
             withCredentials: false,
           }
         );
-        const finalResponse = await res1.json();
+        finalResponse = await res1.json();
         setResponse(finalResponse.items);
         setLoading(false);
       } catch (error) {
@@ -96,6 +96,7 @@ function App() {
               height: "50%",
               textAlign: "center",
               margin: 10,
+              backgroundColor: "#bdd631",
             }}
           >
             Submit
@@ -110,7 +111,7 @@ function App() {
               <div style={{ marginRight: "50px"}}>
                 <img src={item.image_link} alt={"Product"} width={200} />
               </div>
-              <div style={{ }}>
+              <div>
                 <h4 style={{ fontSize: "1rem" }}> {item.title}</h4>
                 <p style={{ fontSize: "1rem" }}> {item.description} </p>
                 <p style={{ fontSize: "1rem" }}>Rs. {Math.floor(item.price)} </p>

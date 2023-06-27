@@ -175,7 +175,7 @@ textarea.question:invalid ~ input[type="submit"] {
 
 .button {
   display: inline-block;
-  background-color: #3498db;
+  background-color: #bdd631;
   color: #fff;
   font-size: 16px;
   font-weight: bold;
@@ -189,7 +189,7 @@ textarea.question:invalid ~ input[type="submit"] {
 }
 
 .button:hover {
-  background-color: #2980b9;
+  background-color: #bdd631;
 }
 
 .button:focus {
