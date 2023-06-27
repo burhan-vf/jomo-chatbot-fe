@@ -108,24 +108,8 @@ function App() {
                 <img src={item.image_link} width={200} />
               </div>
               <div style={{ width: "70%" }}>
-                <TypeAnimation
-                  key={item.title}
-                  sequence={[item.title]}
-                  wrapper="h4"
-                  cursor={false}
-                  repeat={0}
-                  style={{ fontSize: "1rem" }}
-                />
-                <TypeAnimation
-                  key={item.title}
-                  sequence={[item.description]}
-                  wrapper="p"
-                  cursor={false}
-                  repeat={0}
-                  style={{ fontSize: "1rem" }}
-                />
-                {/* <h5>{item.title}</h5>
-                <p>{item.description}</p> */}
+                <h4 style={{ fontSize: "1rem" }}> {item.title}</h4>
+                <p style={{ fontSize: "1rem" }}> {item.description} </p>
               </div>
             </div>
           );
