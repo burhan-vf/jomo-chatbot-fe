@@ -117,7 +117,6 @@ function App() {
                 >
                   <img src={item.image_link} alt={"Product"} width={200} />
                 </a>
-                {/* {console.log(process.env.BASE_URL)} */}
               </div>
               <div>
                 <h4 style={{ fontSize: "1rem" }}>
