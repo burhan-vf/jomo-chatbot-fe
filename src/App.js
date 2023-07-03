@@ -63,7 +63,7 @@ function App() {
       >
         Shopping Assistant{" "}
       </h3> */}
-      <div style={{ margin: "20px 0"}}>
+      <div style={{ margin: "20px 0" }}>
         Welcome to Jomo! How may I assist you in finding the perfect items
         today?
       </div>
@@ -83,10 +83,9 @@ function App() {
         <div
           style={{
             textAlign: "center",
-            width: "100%"
+            width: "100%",
           }}
         >
-
           <Button
             onClick={handleSubmit}
             loading={loading}
@@ -107,14 +106,34 @@ function App() {
       {response &&
         response.map((item) => {
           return (
-            <div style={{ display: "flex", width: "100%", alignItems: "center" }}>
-              <div style={{ marginRight: "50px"}}>
-                <img src={item.image_link} alt={"Product"} width={200} />
+            <div
+              style={{ display: "flex", width: "100%", alignItems: "center" }}
+            >
+              <div style={{ marginRight: "50px" }}>
+                <a
+                  href={`https://jomo.pk${item.link}`}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <img src={item.image_link} alt={"Product"} width={200} />
+                </a>
+                {/* {console.log(process.env.BASE_URL)} */}
               </div>
               <div>
-                <h4 style={{ fontSize: "1rem" }}> {item.title}</h4>
+                <h4 style={{ fontSize: "1rem" }}>
+                  {" "}
+                  <a
+                    href={`https://jomo.pk${item.link}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {item.title}
+                  </a>
+                </h4>
                 <p style={{ fontSize: "1rem" }}> {item.description} </p>
-                <p style={{ fontSize: "1rem" }}>Rs. {Math.floor(item.price)} </p>
+                <p style={{ fontSize: "1rem" }}>
+                  Rs. {Math.floor(item.price)}{" "}
+                </p>
               </div>
             </div>
           );
